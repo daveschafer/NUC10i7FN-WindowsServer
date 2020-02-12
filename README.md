@@ -86,5 +86,5 @@ I was **not** able to get the Bluetooth PAN Driver working till this day. But I 
 
 ## Further Informations
 
-
-https://www.niallbrady.com/2019/06/26/how-to-enable-thunderbolt-on-windows-server-2019/
+https://www.niallbrady.com/2019/06/26/how-to-enable-thunderbolt-on-windows-server-2019/  
+https://www.reddit.com/r/intelnuc/comments/b0emtf/windows_server_2019_core_on_nuc8/
