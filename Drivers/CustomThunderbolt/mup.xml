@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!--Created With CreateMup.exe Version 05.22.2012.2100-->
+<MUPDefinition xmlns="http://schemas.dell.com/openmanage/cm/2/0/mupdefinition.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schemas.dell.com/openmanage/cm/2/0/mupdefinition.xsd mupdefinition.xsd">
+  <packageinformation>
+    <installertype>msi</installertype>
+    <packagegrouping>single_package</packagegrouping>
+    <packagingtype>zip</packagingtype>
+    <releasetype>DRVR</releasetype>
+    <mupspecificationversion>2.4.3</mupspecificationversion>
+    <version>17.4.77.400</version>
+    <name>Thunderbolt(TM) Software</name>
+    <supportedoperatingsystems>
+	</supportedoperatingsystems>
+  
+	<content>
+      <Device componentID="103992">
+        <Generic>{E6869364-3C20-4216-87C6-829A050D1291}\P2P</Generic>
+        <Image type="DRVR" version="17.4.77.5">
+		  <file>tp2p100x.SYS</file>
+          <file>tp2p100x.INF</file>
+          <file>tp2p100x.CAT</file>
+        </Image>
+      </Device>
+      <Device componentID="103992">
+  		<PCIInfo vendorID="8086" deviceID="15BF"/>
+		<PCIInfo vendorID="8086" deviceID="15D2"/>
+		<PCIInfo vendorID="8086" deviceID="15D9"/>
+		<PCIInfo vendorID="8086" deviceID="1575"/>
+		<PCIInfo vendorID="8086" deviceID="1577"/>
+		<PCIInfo vendorID="8086" deviceID="15E8"/>
+		<PCIInfo vendorID="8086" deviceID="15EB"/>
+		<PCIInfo vendorID="8086" deviceID="15DC"/>
+		<PCIInfo vendorID="8086" deviceID="15DD"/>
+		<PCIInfo vendorID="8086" deviceID="15DE"/>
+        <Image type="DRVR" version="17.4.77.13">
+		  <file>tbt100x.SYS</file>
+		  <file>tbt100x.INF</file>
+		  <file>tbt100x.CAT</file>		  
+        </Image>
+      </Device>
+    </content>
+	</packageinformation>
+  <executable>
+    <executablename>msiexec.exe</executablename>
+    <requiredparameters>
+      <commandlineparameter>/i setup.msi NONADMIN=1</commandlineparameter>
+    </requiredparameters>
+  </executable>
+  <behaviors>
+    <behavior name="attended" />
+    <behavior name="unattended">
+      <vendoroption>
+        <optionvalue switch="/" requiresvalue="false">qn</optionvalue>
+      </vendoroption>
+      <!-- The DUP will Restart the system
+      <vendoroption>
+        <optionvalue switch="/" requiresvalue="false">b</optionvalue>
+      </vendoroption>
+-->
+    </behavior>
+    <behavior name="extractdrivers">
+      <vendoroption>
+        <optionvalue requiresvalue="false" switch="/">qn</optionvalue>
+      </vendoroption>
+      <vendoroption>
+        <optionvalue switch=" " valuedelimiter="=" requiresvalue="true" enclose="&quot;">EXTRACTDRIVERS</optionvalue>
+      </vendoroption>
+    </behavior>
+    <behavior name="freshinstall">
+      <vendoroption>
+        <optionvalue requiresvalue="false" switch="/">qn</optionvalue>
+      </vendoroption>
+      <vendoroption>
+        <optionvalue switch="" requiresvalue="false">FRESHINSTALL=TRUE</optionvalue>
+      </vendoroption>
+    </behavior>
+  </behaviors>
+  <parameters>
+    <parametermapping name="logfile">
+      <vendoroption>
+        <optionvalue switch="/" requiresvalue="true" enclose="&quot;" valuedelimiter=" ">l</optionvalue>
+      </vendoroption>
+    </parametermapping>
+  </parameters>
+  <returncodes>
+    <returncodemapping name="REBOOTING_SYSTEM">
+      <vendorreturncode>1641</vendorreturncode>
+    </returncodemapping>
+    <returncodemapping name="PASSWORD_REQUIRED">
+      <!-- Not valid -->
+      <vendorreturncode>2</vendorreturncode>
+    </returncodemapping>
+    <returncodemapping name="NO_DOWNGRADE">
+      <!--Always able to DownGrade, Installer Doesn't need to support-->
+      <vendorreturncode>9999</vendorreturncode>
+    </returncodemapping>
+    <returncodemapping name="SUCCESS">
+      <vendorreturncode>0</vendorreturncode>
+    </returncodemapping>
+    <returncodemapping name="ERROR">
+      <vendorreturncode>1602</vendorreturncode>
+    </returncodemapping>
+    <returncodemapping name="REBOOT_REQUIRED">
+      <vendorreturncode>3010</vendorreturncode>
+    </returncodemapping>
+    <returncodemapping name="UNKNOWN_OPTION">
+      <vendorreturncode>1603</vendorreturncode>
+    </returncodemapping>
+  </returncodes>
+  <inventorymetadata>
+    <extractdriversidentifier>
+            <pnpids>
+        <pnpdevice componentID="103992">
+          <!--filename: Winx64\tbt100x.inf-->
+          <driverversion>17.4.77.13</driverversion>
+          <pciinfo vendorID="8086" deviceID="1575" />
+          <pciinfo vendorID="8086" deviceID="1577" />
+          <pciinfo vendorID="8086" deviceID="15BF" />
+          <pciinfo vendorID="8086" deviceID="15D2" />
+          <pciinfo vendorID="8086" deviceID="15D9" />
+          <pciinfo vendorID="8086" deviceID="15E8" />
+          <pciinfo vendorID="8086" deviceID="15EB" />
+          <pciinfo vendorID="8086" deviceID="15DC" />
+          <pciinfo vendorID="8086" deviceID="15DD" />
+          <pciinfo vendorID="8086" deviceID="15DE" />
+        </pnpdevice>
+        <pnpdevice componentID="103992">
+          <!--filename: Winx64\tp2p100x.inf-->
+          <driverversion>17.4.77.5</driverversion>
+          <generic>{E6869364-3C20-4216-87C6-829A050D1291}\P2P</generic>
+        </pnpdevice>
+      </pnpids>
+    </extractdriversidentifier>
+    <fullpackageidentifier>
+      <msis>
+        <msi componentID="103992">
+          <identifyingnumber>{1CAE7E2B-41ED-46BF-AA78-4658AE8C2130}</identifyingnumber>
+          <version>17.4.77.400</version>
+          <upgradecode>{98F4A036-8424-4944-9373-DB1ED859B6EE}</upgradecode>
+        </msi>
+      </msis>
+    </fullpackageidentifier>
+  </inventorymetadata>
+</MUPDefinition>

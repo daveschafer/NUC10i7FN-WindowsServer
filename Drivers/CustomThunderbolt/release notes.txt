@@ -1,0 +1,331 @@
+﻿Thunderbolt(TM) Software Release Notes
+======================================
+This document is the release notes for the Thunderbolt software version 17.4.77.400
+
+
+Supported Operating Systems
+===========================
+  Windows* 10  64-bit
+
+Windows Update references:
+- RS3: shared product ID 1152921504607502549, submission ID 1152921504627611457
+- RS4: shared product ID 1152921504607517008, submission ID 1152921504627695591
+			
+
+Supported Thunderbolt Controllers
+=================================
+  DSL6540/6340  Series - "Alpine Ridge"  
+  JHL6540/6340  Series - "Alpine Ridge"  
+  JHL6240       Series - "Alpine Ridge LP" 
+  JHL7540/7340  Series - "Titan Ridge"     
+
+
+Changes:
+========
+Version 17.4.77.400
+  - Hotfix: Race condition between SW and FW while entering RTD3 and a device is connected at the same time (see fixed issue #2202117254)
+
+Version 17.4.76.300
+  - Toast message on device connection changed to "New Thunderbolt™ device has been connected. Click here to approve the device." 
+    The notification time has been extended to remain around 25 seconds at the minimum.
+  - Fixed MUP errors popped up with CVT2.0.1
+
+Version 17.4.75.250
+  - Implements RTD3 RCR:
+    * When the platform is RTD3 capable (BIOS & FW) the driver will enable it automatically on each driver load.
+      It would be reflected on the Thunderbolt controller Power Management tab. 
+    * Changed FW Update SDK accordingly to expose RTD3 capability (including SDK API, documentation and sample)       
+  - Fixed potential Bugcheck when resuming from Sx while Thunderbolt networking connection is active (see fixed issue #1604754624)
+  - Fixed another corner case addressing issue #1604629561
+  
+Version 17.3.74.400
+  - Hotfix: Bugcheck E1 observed during S3,S4 & WR cycle (Pointing to Ntkrnlmp.exe) (see fixed issue #1604664744)
+
+Version 17.3.73.350
+  - Hotfix: Race condition between Service Shutdown and OS Sx entry flow (see fixed issue #1604629561)
+
+Version 17.3.72.250
+  - Added support for Titan Ridge host controllers (JHL7540 & JHL7340)
+  - Added support for PRE-BOOT ACL feature (deprecating previous implementation from 17.1.64.250):
+      Devices that can be used for boot or during pre-boot need to be pre-approved. 
+      Pre-Boot ACL solution enables device pre boot approval by maintaining an access control list in the FW as well
+  - Fixed race condition issues for supporting Selective Suspend (RTD3) state (refer to fixed issues #4927597 and #4927596 for more details)
+
+Version 17.2.71.250
+  - Added support for Windows* 10 RS3 Native PCIe Enumeration ("Native Express" mode) and Selective Suspend (RTD3) state.
+  - Added support to enable Firmware Update on host controller in USB only mode (Device ID 0x15DC, 0x15DD and 0x15DE).
+  - Added support for firmware update on device based on TR-DD (JHL 7440) controller - Including SDK and sample update
+  - System Tray application reports software & firmware component versions in a separate menu option that does not require Admin permission.
+  - Added UEFI capsule update reference code for Host controller Firmware Update in SDK sample folder
+  - Optimized Installer Package for Thunderbolt Software, reducing its size significantly (less than 10Mb)
+  - Toast notification improvement, now based on the Action Center instead of persistent notification in the right bottom corner of the screen.
+  - This package does not support the PRE-BOOT ACL feature introduced in previous software package 17.1.x
+  - Thunderbolt Networking is now working properly with Microsoft Windows bridge functionality (Windows* 10 RS3 required)
+  
+Version 17.1.64.250
+  - Initial support for Windows* 10 RS2 Native Enumeration (FWU SDK and samples updated accordingly as well).
+  - Added support for PRE-BOOT ACL feature: 
+      Devices that can be used for boot or during pre-boot need to be pre-approved. 
+      Pre-Boot ACL solution enables device pre boot approval by maintaining an access control list in the BIOS. 
+      ACL is maintained by both the SW and the BIOS.
+      Main “use case” flow:
+        1. User adds one or some entries to the ACL through the TBT SW
+        2. TBT SW downloads the ACL into BIOS
+        3. On boot, BIOS communicates the ACL to TBT FW
+        4. FW can identify connected devices and authorize them in Pre-boot stage
+        5. At OS up, TBT SW gets indication on presence of  pre-boot authorized device
+  - Added support for Apple* Boot Camp in Secure Connect mode (SL1)
+  - Firmware Policy settings window has been removed
+  - No more support for older Thunderbolt 1 and 2 host controllers
+  - No more support for older version of Windows* 7 and 8.1  
+
+Version 16.3.61.275
+  - Added support for Windows* 10 RS2 64-bit.
+  - Added check-box to each notification not to show it again. This could be reset through the Settings panel.
+  - Added support for Titan Ridge (JHL7xxx series) devices (dock) firmware update through Alpine Ridge 
+    (DSL6xxx/JHL6xxx series) host controllers.
+  WARNING: 
+  - This is the last software package supporting Thunderbolt 1 and 2 host controllers
+  - This is the last software package supporting Windows* 7 and 8.1     
+
+Version 16.3.59.250
+  - PD information dependencies removed from SW UI, and replaced by additional support via 
+    SDK & Samples. Refer to Thunderbolt_SDK_Guide.pdf for more information about new methods: 
+    I2CRead, I2CWrite and GetTIPdInfo
+  - Added new method GetControllerInfo in SDK CMD sample to provide more information on a given
+    Thunderbolt host controller
+  - Added user notification when update needed for the Thunderbolt™3 port to function properly.
+    This notification is triggered when NVM version is less than 16, and applicable to Alpine Ridge
+    DSL6540/6340 controllers only 
+  - Added support for NonAdmin mode through INF install mode.
+    This option is not enabled by default and need customized INF/CAT files.
+    Please contact your Thunderbolt support team for more information
+  - Disabled QoS notifications to user by default - this can still be enabled through manual registry setting edit
+    HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\ThunderboltService\EnableQoSNotifications
+
+Version 16.2.55.275
+  - Added support for NonAdmin mode through installer switch. 
+    Run setup.msi NONADMIN=1 when installing the Thunderbolt SW package in order to allow user 
+    without administrator privileges to approve devices.
+  - Changes in MUP to support white space in executable name. Also removed SubVendorId attribute.
+  - Change in Installer to set AutoConnect mode by default for Thunderbolt Networking connections.
+  - Fix for QoS misleading popup, including fixed bandwidth calculation and relaxed conditions.
+  - Fix for WMI registration issue leading to display empty UI (and eventually PCIe enumeration 
+    drop in SL1).
+
+Version 16.2.52.250
+  - Added support for Windows* 10 Anniversary Update (RS1) 64-bit.
+  - Added QoS Bandwidth computation and user notification
+  - Added QoS Multi-function PCIe device handling
+  - System Tray application reports NVM minor version in the Details form
+  - Updated SDK API, Samples and SDK documentation to support the NVM minor version reporting
+  - Added conditional application starter to improve boot time when no device connected
+  - Added support for TI TPS65983 PD Controller in SW, SDK API and samples
+  - Networking driver is unloaded on cable disconnect instead of reporting link down
+  - General improvements and bug fixes (see "Fixed Issues" section below for more details)
+
+Version 16.1.45.275
+  - Hotfix: Application GUI does not pop up on device hotplug after initial package installation
+  - HVCI compliance per Microsoft Device Guard recommendations
+
+Version 16.1.45.250
+  - Added support for Alpine Ridge LP and Alpine Ridge C-step (including FW Update SDK)
+  - Added Firmware Update progress indication in FW Update SDK and samples
+  - Added SDK sample to update Firmware on device only
+  - Added support for devices made of multiple controllers
+  - Added support for external GPU user notifications
+  - Added RSS support to Thunderbolt Networking to improve performance capabilities
+  - General improvements and bug fixes
+
+Version 15.3.40.275
+  - Hotfix: added user notification when update needed for the Thunderbolt™3 port to function properly.   
+    For more information go to https://thunderbolttechnology.net/updates
+
+Version 15.3.39.250
+  - Optimization in Firmware update flow to speed-up the NVM flashing process
+  - System Tray application reports software & firmware component versions in the Details form
+  - Updated SDK sample to add support for Power Delivery firmware version 
+  - General improvements and bug fixes
+
+Version 15.2.35.250
+  -  Added Firmware Update SDK for devices based on L6000 controller series.   
+
+Version 15.2.32.250
+  -  Added support for Windows* 10 64-bit.
+  -  Added support for L6000 controller series.
+  -  Added support for L4000 controller series on Windows* 10 64-bit only.
+  -  Added support INF based installation.
+     * All drivers must be installed separately to have the complete functionality.
+     * Installing Thunderbolt Controller driver (tbtxxx) triggers the full SW package installation.
+     * Installing Thunderbolt Networking driver (tp2pxxx) installs the Thunderbolt Networking Support.
+  -  Added Auto-connect mode for Thunderbolt Networking connections without user approval need.
+  -  Added a desktop icon for fast access to an adjacent PC over a Thunderbolt Networking connection.
+  -  Added End-to-End mode support for L6000 controller series to enhance Thunderbolt Networking performance.
+  -  Added support for safe mode notification for L6000 controller series.
+  -  Enhanced Firmware Update SDK for L6000 controller series support.
+  -  Added support for Apple* Boot Camp.
+
+Version 15.1.26.250
+  -  General improvements and bug fixes
+
+Version 3.0.19
+  -  SW supports hosts with multiple Thunderbolt controllers.
+  -  This SW package no longer supports the L4000 controller series. For support of L4000
+     controllers please use SW package 2.5.7.
+
+Version 2.5.7:
+  -  SW will now create a Thunderbolt network when connecting two hosts via Thunderbolt 
+     controllers: Windows-to-Windows and Windows-to-MacOS, on L5000 and L5110 controllers.
+  -  For better usability, the SysTray application can be activated through its binary
+     shortcut from the Windows Start menu as well.
+
+Version 2.0.4:
+  -  Added support for L5110 controllers. 
+  -  Added a service component to the SW stack.
+  -  The SW components (driver, service and System Tray application) will start automatically 
+     when a new Thunderbolt device is connected and will go down when no devices are connected
+     (except if user has one of these screens open: Settings, Manage Approved Devices).
+  -  When Policy settings are changed via the system tray application the settings are applied 
+     to connected devices without the need to disconnect them.
+  -  System Tray application displays error messages when in No Security mode (Legacy mode).
+  -  System Tray application supports moving devices from "connect once" to "always connect" via
+     the Approve Devices dialog.
+  -  When a non-admin connects a new device there will be a persistent dialog indicating the 
+     new device (instead of a balloon that disappears). 
+  -  Removed support from Windows 8 32b & 64b and from Windows 8.1 32b.
+
+Version 1.5:
+  -  Added toast notifications to notify users on need to approve newly connected devices (Win8,
+     Win 8.1) 
+
+Version 1.4:
+  -  Added support for Win 8.1 32b & 64b.
+
+
+Fixed Issues
+============
+Version 17.4.77.400
+2202117254 Connection of a device while system just entered RTD3 causes hotplug event to be missed
+	   Device doesn't appear in TBT SW as consequence.
+	
+Version 17.4.75.250
+1604754624  Very sporadic Bugcheck 7E observed during S4 cycling while P2P is connected 
+
+Version 17.3.74.400
+1604664744  Bugcheck E1 observed during S3,S4 & WR cycle (Pointing to Ntkrnlmp.exe)
+            due to race condition on spinlock
+
+Version 17.3.73.350
+1604629561  Thunderbolt 3 Device fails to enumerate when plug in S0 after resume from S3/S4, 
+            when the device is unplugged in S3/S4 entry transition
+
+Version 17.3.72.250
+4927595 Sporadically, when "Fast Startup" mode is enabled and system is shutdown while a device is connected,
+        this device will not enumerate and show up in device manager on system restart
+
+4927597 In "Secure Connect" mode (a.k.a. SL2), while the Thunderbolt host controller is in Selective Suspend (RTD3) state,
+        moving two or more authorized devices to the ACL (by choosing "always connect") will succeed only for the first device.
+
+4927590 Thunderbolt topology is not correctly refreshed in the UI Application while resuming from Sleep (S3 or S4) if chain of 
+        authorized devices is disconnected during Sx state. This occurs only if the UI application is left opened before the 
+        Sx transition.        
+
+4927596 Error 0x100 FW_RESPONSE_TIMEOUT or 0x3 GENERAL_ERROR is returned when trying to perform Firmware Update while the Thunderbolt
+        host controller is in Selective Suspend (RTD3) state
+
+Version 17.1.64.250
+4926127 In this version the SW stack goes down when the last device is disconnected. However, 
+        the system tray application will stay up if the last device is disconnected within a few
+        seconds of the user changing the settings. 
+        This issue is not relevant anymore since the FW Policy settings form is no more accessible.
+        
+Version 16.3.59.250
+4927300 Thunderbolt Application crashes when clicking quickly multiple times on the Thunderbolt
+        systray Application.
+
+4927315 Uninstalling Thunderbolt Software immediately after PC restarts is prevented by the
+        "Thunderbolt(TM) Conditional Application starter" 
+
+4927434 Service crash after entering Sx while device is being authorized.
+
+
+Version 16.2.55.275
+4927384a QoS warning appears on Alpine Ridge device when DP consumes all the link bandwidth.
+
+4927384b QoS warning incorrectly reported when connecting two 4K monitors.
+
+4927271 GUI tree is reported as empty after cold boot to OS while devices are connected.
+
+
+Version 16.2.52.250
+4926352 When security level is "Secure Connect", after disconnecting and reconnecting devices while
+        the PC is in sleep mode, the authorization window will not automatically open but the devices
+        still need to be re-authorized.
+
+4926536 Application GUI does not pop up on device hot-plug after initial package installation.
+
+4926798 Thunderbolt.exe is managed code and will have impact on boot time even if the Systray 
+        Application should not be running (e.g. no Thunderbolt device is connected).
+
+4927148 Once a Thunderbolt networking session is established, restarting one peer may leave the 
+        Connection Status of the remote peer to be reported incorrectly as well as the Thunderbolt 
+        Networking menu being greyed out, even if the networking functionality is still working.
+
+4927198 Once a Thunderbolt networking session is established, the GUI tree may be not showing the 
+        remote peer after this one is restarted.
+
+4927150 In some timing race conditions the Systray Application icon does not appear, and should 
+        be launched manually.
+
+4927167 Unable to access remote peer using the "Desktop Icon"/"My computer icon" when the name
+        of the remote PC was changed.
+
+4927180 Unable to access remote peer using the "Desktop Icon"/"My computer icon" when the Thunderbolt
+        Service was restarted.
+
+4927195 A device white listed in Security Level 1 (i.e. "User Authorization") will not be authorized
+        when moving to Security Level 2 (i.e. "Secure Connect") until it is removed from the white list
+        and reinserted.
+
+4927199 When no Thunderbolt Controller is present, running manually the Thunderbolt Software may 
+        report incorrectly a need for Firmware Update.
+
+4927217 No authorization window appear for device approval after Sx resume when "Wake on Thunderbolt"
+        is disabled in BIOS.
+
+4927179 In some languages (ENU, JPN, PTB) the eGPU toast notification is truncated.
+
+4927205 Systray Application does not start after restarting the PC with Thunderbolt Device connected.
+
+4927227 After performing INF upgrade, the Thunderbolt SW is indeed not installed.
+
+4926842 Upon Thunderbolt networking connection, it is possible to delete the peer icon located on the
+        desktop, however it will be restored on desktop refresh (pressing F5)
+
+
+Known Issues
+============
+4926928 Concurrent install/upgrade can lead the Thunderbolt Software to be partially installed if it is 
+        run unattended while another MSI process is already running. In such a case the Thunderbolt
+        software should be removed and re-installed.
+
+4927310 Connecting a Thunderbolt device in the middle of the Thunderbolt Software installation process
+        may lead the software to miss the automatic launch when installation is done. 
+        Disconnecting the device for at least 10sec and reconnecting it will trigger the software again.
+        
+Limitations
+============
+   -  The Thunderbolt Networking implementation does not support Link aggregation (a.k.a. NIC teaming) 
+      via the OS.
+
+
+Legal Information
+=================
+Thunderbolt is a trademark of Intel Corporation in the U.S. and/or other countries.
+
+Microsoft, Windows, and the Windows logo are trademarks, or registered trademarks of
+Microsoft Corporation in the U.S. and/or other countries.
+
+* Other names and brands may be claimed as the property of others.
+
+Copyright(C) 2013-2018 Intel Corporation. All rights reserved.
