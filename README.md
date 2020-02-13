@@ -49,6 +49,10 @@ Open Device Properties, switch to "Details" and select the property "Hardware-ID
     Driver: Bluetooth PAN  
     Custom Driver:  -  
 
+This is the Bluetooth Personal Area Network Driver.  
+Select this Device in devmgr --> Update Driver --> Choose driver from my computer --> Choose from List:  
+Scroll down to the provider "Microsoft" and select the Driver with the name "Personal Area Network Service".  
+
 **VEN_8086&DEV_02F0**
 
     Driver: Wireless-AC 9560 Driver  
